@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
+const { startBot } = require('./services/discord/bot');
 
 // Load environment variables
 dotenv.config();
@@ -39,4 +40,7 @@ app.get('/', (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  
+  // Start Discord bot
+  startBot();
 });

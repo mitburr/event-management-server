@@ -1,19 +1,19 @@
 # Party Invitation SMS Server
 
-A Node.js server that runs on a Raspberry Pi and sends party invitations via SMS using your Android phone.
+A Node.js server that runs on a Raspberry Pi and sends party invitations via SMS using Twilio. Controlled through Discord commands.
 
 ## Features
 
-- Send SMS party invitations from your personal phone number
-- Upload and include images in invitations
+- Send SMS party invitations through Discord commands
 - Manage contacts and contact groups
-- Works remotely via Firebase Cloud Messaging
+- Use your own dedicated Twilio phone number
+- Simple Discord bot interface - no custom UI needed
 
 ## Prerequisites
 
 - Raspberry Pi running Node.js
-- Android phone with Tasker and AutoTools installed
-- Firebase account (free tier)
+- Discord account and server where you can add bots
+- Twilio account (free trial available)
 
 ## Setup Instructions
 
@@ -21,15 +21,26 @@ A Node.js server that runs on a Raspberry Pi and sends party invitations via SMS
 
 1. Clone this repository onto your Raspberry Pi
 2. Install dependencies with `npm install`
-3. Create a Firebase project and get service account credentials
-4. Update the `.env` file with your Firebase configuration
-5. Start the server with `npm start`
+3. Create a Discord bot at https://discord.com/developers/applications
+4. Create a Twilio account at https://www.twilio.com and get a phone number
+5. Update the `.env` file with your Discord and Twilio credentials
+6. Start the server with `npm start`
 
-### Android Phone Setup
+### Discord Bot Setup
 
-1. Install Tasker and AutoTools from Google Play Store
-2. Set up Firebase Cloud Messaging in Tasker (instructions coming soon)
-3. Configure Tasker profile to send SMS when FCM message is received
+1. Create a new application at https://discord.com/developers/applications
+2. Add a bot to your application
+3. Enable message content intent in the bot settings
+4. Generate an invite link with bot permissions
+5. Invite the bot to your server
+6. Copy your bot token to the `.env` file
+
+## Discord Commands
+
+- `!invite <group> <message>` - Send SMS to a group of contacts
+- `!contacts list` - List all contacts
+- `!groups list` - List all groups
+- `!help` - Show available commands
 
 ## API Endpoints
 
