@@ -1,0 +1,33 @@
+{
+  "name": "party-invitation-server",
+  "version": "1.0.0",
+  "description": "A server to send party invitations via SMS using your Android phone",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "initdb": "node database/init.js"
+  },
+  "keywords": [
+    "sms",
+    "party",
+    "invitation",
+    "raspberry-pi",
+    "firebase"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.3.0",
+    "multer": "^1.4.5-lts.2",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
