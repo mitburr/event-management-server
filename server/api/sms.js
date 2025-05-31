@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { sendSMS } = require('../services/sms/twilio');
+const { handleIncomingSMS } = require('../services/discord/bot');
 const fs = require('fs');
 
 // Configure multer for FABULOUS file uploads!
@@ -37,6 +38,38 @@ const partyUploader = multer({
     }
   }
 });
+
+// Twilio webhook for incoming messages
+router.post('/webhook', async (req, res) => {
+  try {
+    const { From, Body, NumMedia } = req.body;
+    
+    // Extract media URLs if present
+    const mediaUrls = [];
+    const numMedia = parseInt(NumMedia) || 0;
+    
+    for (let i = 0; i < numMedia; i++) {
+      const mediaUrl = req.body[`MediaUrl${i}`];
+      if (mediaUrl) {
+        mediaUrls.push(mediaUrl);
+      }
+    }
+    
+    // Handle the incoming message
+    await handleIncomingSMS(From, Body, mediaUrls);
+    
+    // Send a TwiML response (empty response is fine)
+    res.set('Content-Type', 'text/xml');
+    res.send('<Response></Response>');
+  } catch (error) {
+    console.error('Error handling SMS webhook:', error);
+    res.status(500).send('<Response><Message>Server Error</Message></Response>');
+  }
+});
+
+// Other SMS-related endpoints can go here
+
+module.exports = router;
 
 // Send SMS with optional FANTASTIC image
 router.post('/send', partyUploader.single('image'), async (req, res) => {

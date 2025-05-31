@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
+const smsRoutes = require('./api/sms');
+
 const { startBot } = require('./services/discord/bot');
 
 // Load environment variables
@@ -30,7 +32,7 @@ const smsRouter = require('./api/sms');
 app.use('/api/contacts', contactsRouter);
 app.use('/api/groups', groupsRouter);
 app.use('/api/invitations', invitationsRouter);
-app.use('/api/sms', smsRouter);
+app.use('/api/sms', smsRoutes);
 
 // Root route
 app.get('/', (req, res) => {
